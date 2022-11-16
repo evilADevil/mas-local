@@ -6,7 +6,7 @@ I've decided to focus a bit on the problem of installing MAS on a laptop compute
 These instructions will allow you to have a fully functional MAS Core + Manage, that has the Suite License Server (SLS) and DB2 on board, while UDS is remote.
 
 ## What you would need to run OpenShift Local
-First of all, you'll need a decent Laptop. I used a Lenovo ThinkPad P15 with 64 GiB of memory, but the install should fit in the same model with 32 GiB of memory. In the end, you will need the availability of 14 vCPU and 30 GiB of memory.
+First of all, you'll need a decent Laptop. I used a Lenovo ThinkPad P15 with 64 GiB of memory. In the end, you will need the availability of 14 vCPU and 30 GiB of memory.
 Then you will need a locally running OCP. Register to Red Hat, go to the [Red Hat Console for OpenShift](https://console.redhat.com/openshift), click on the *Create Cluster* button, click on the *Local* tab, download and install OpenShift Local (also know previously as CRC, i.e. Code Ready Container). In that same page, there is your pull secret that you'll need to copy and use during setup
 Now you are ready to the next step. Open a command prompt and run `crc setup`. Before staring a new OpenShift Local, we want to configure it so that it will allow MAS to fit. We will need to use a trick because CRC seems to have a bug in expanding the disk. We need to start it a first time, then stop it, set the new disk size and start it again.
 This is the set of commands to configure it correctly and start it
@@ -69,7 +69,13 @@ other files may be present there (like this `README.md`), but these are the impo
 At the command prompt, run `masinst` and wait it to finish.
 As the log proceed, pay attention to record the userid and password of the MAS superuser, that should look like this:
 ```
-"Username .......... xSGgS3vs9bjHZjIn5f2oX5EZfI7UZ6v9",
-"Password .......... cgKTIIAwVxglme6HC6Syea2jDzF6cChg"
+ok: [localhost] => {
+    "msg": [
+        "Maximo Application Suite is Ready, use the superuser credentials to authenticate",
+        "Admin Dashboard ... https://admin.masdemo.apps-crc.testing",
+        "Username .......... DIZv7X2eavITxb3vKtf3XRsY85UYj7FV",
+        "Password .......... 58Wi9n9U4yVgZ7AhXVRS4eIqEQSnMhsq"
+    ]
+}
 ```
 In case you don't have the log anymore, you can always retrieve them from the `masdemo-credentials-superuser` secret in the `mas-masdemo-core` namespace.
