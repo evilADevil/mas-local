@@ -30,23 +30,24 @@ git clone mas-local
 cd mas-local
 ```
 Then you need to procure yourself a few files to add to this directory and some important information:
-0. The Entitled Registry (ER) key. This key will have to be enabled to get the MAS and CloudPak for Data images and you can get it by logging into [My IBM](https://myibm.ibm.com/dashboard/) and click on *Container Software & Entitlement key*
-1. A MAS license file. Put this file called `license.dat` in the `mas-local` directory.
-2. A license id matching the MAS license file. You can find out what this is by open the license file in an editor, and check the first line. The license id will be the second-last number. For example, if your first line is `SERVER sls-rlks-0.rlks 0272bc344002 27000` then your icense id is `0272bc344002`.
-3. The url of the remote UDS.
-4. The API key for the remote UDS.
-5. The certificates of the remote UDS. Put them in a file called `uds.crt` in the `mas-local` directory.
-	To get the UDS info, you may want to follow these few steps.
+1. The Entitled Registry (ER) key. This key will have to be enabled to get the MAS and CloudPak for Data images and you can get it by logging into [My IBM](https://myibm.ibm.com/dashboard/) and click on *Container Software & Entitlement key*
+2. A MAS license file. Put this file called `license.dat` in the `mas-local` directory.
+3. A license id matching the MAS license file. You can find out what this is by open the license file in an editor, and check the first line. The license id will be the second-last number. For example, if your first line is `SERVER sls-rlks-0.rlks 0272bc344002 27000` then your icense id is `0272bc344002`.
+4. The url of the remote UDS.
+5. The API key for the remote UDS.
+6. The certificates of the remote UDS. Put them in a file called `uds.crt` in the `mas-local` directory.
+	To get the UDS info, you may want to follow these few steps:
 	- Find a MAS system with a local UDS instance and login into it as a MAS administrator.
 	- Navigate to *Configurations* and click on the *User Data Service* line.
 	- In that page you will find the url and the certificates to put in the `uds.crt` file.
 	- In that page it is also contains the name of the secret that hold the UDS API key. Take a note of it, it is something like `<MAS instance name>-usersupplied-bas-creds-system`
-	- To get the UDS API key, you'll need to login into the OpenShift cluster where UDS is running,
+	- To get the UDS API key, you'll need to login into the OpenShift cluster where UDS is running, then:
 	  - click on *Workloads* to expand the section,
 	  - click on *Secrets*,
 	  - make sure the Project at the top is `mas-<MAS instance name>-core`,
 	  - find the secret named as you noted from the MAS configuration panel, something like `<MAS instance name>-usersupplied-bas-creds-system`, open its yaml and grab the base64 encoded `api_key` from the `data` section,
-	  - decode the api key using a base64 decoder like [this](https://www.base64decode.org/)
+	  - decode the api key using a base64 decoder like the one on [this site](https://www.base64decode.org/)
+
 The next step is to customize the file `masocpl.yml` using the information you collected. Specifically:
 - Replace `<<your ER key>>` with your ER key from step 0 above.
 - Replace `<<your license id>>` with the license id you obtained from step 2 above
@@ -70,6 +71,5 @@ As the log proceed, pay attention to record the userid and password of the MAS s
 ```
 "Username .......... xSGgS3vs9bjHZjIn5f2oX5EZfI7UZ6v9",
 "Password .......... cgKTIIAwVxglme6HC6Syea2jDzF6cChg"
-
 ```
 In case you don't have the log anymore, you can always retrieve them from the `masdemo-credentials-superuser` secret in the `mas-masdemo-core` namespace.
