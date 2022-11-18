@@ -1,0 +1,20 @@
+﻿apiVersion: config.mas.ibm.com/v1
+kind: JdbcCfg
+metadata:
+  name: masdemo-jdbc-wsapp-maslocal-manage
+  namespace: mas-masdemo-core
+  labels:
+    mas.ibm.com/applicationId: manage
+    mas.ibm.com/configScope: workspace-application
+    mas.ibm.com/instanceId: masdemo
+    mas.ibm.com/workspaceId: maslocal
+spec:
+  config:
+    credentials:
+      secretName: masdemo-usersupplied-jdbc-creds-wsapp-maslocal-manage
+    driverOptions: {}
+    sslEnabled: false
+    url: >-
+      jdbc:sqlserver://host.crc.testing:1433;databaseName=maxdb80;integratedSecurity=false;sendStringParametersAsUnicode=false;responseBuffering=adaptive;encrypt=false;
+  displayName: masdemo-jdbc-wsapp-maslocal-manage
+  type: external
