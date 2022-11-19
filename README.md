@@ -56,6 +56,7 @@ The next step is to customize the file `masocpl.yml` using the information you c
 - Replace `<<your uds api key>>` with the url obtained in step 4 above
 - Replace also the `uds_contact` info
 We are ready to proceed to install MAS Core and Manage
+
 ## How you would install MAS Core and MAS Manage
 At this point, your working directory should include the following files:
 ```
@@ -67,7 +68,31 @@ license.dat
 masinst.bat
 ```
 other files may be present there (like this `README.md`), but these are the important ones for the installation.
-At the command prompt, run `masinst` and wait it to finish.
+Before starting the MAS installation, you need to login to the OpenShift Local instance. The `crc start` command you have issued should have ended with some messages like these that include the admin credentials:
+```
+Started the OpenShift cluster.
+
+The server is accessible via web console at:
+  https://console-openshift-console.apps-crc.testing
+
+Log in as administrator:
+  Username: kubeadmin
+  Password: H2rDA-GXB82-dSdTA-cAAYu
+
+Log in as user:
+  Username: developer
+  Password: developer
+
+Use the 'oc' command line interface:
+  > @FOR /f "tokens=*" %i IN ('crc oc-env') DO @call %i
+  > oc login -u developer https://api.crc.testing:6443
+```
+At the command prompt, run the following commands using the password that your environment provided:
+```
+@FOR /f "tokens=*" %i IN ('crc oc-env') DO @call %i
+oc login -u kubeadmin -p H2rDA-GXB82-dSdTA-cAAYu https://api.crc.testing:6443
+```
+AT this point you are ready to install MAS with Manage. Run `masinst` at the prompt and wait it to finish.
 As the log proceed, pay attention to record the userid and password of the MAS superuser, that should look like this:
 ```
 ok: [localhost] => {
@@ -80,3 +105,4 @@ ok: [localhost] => {
 }
 ```
 In case you don't have the log anymore, you can always retrieve them from the `masdemo-credentials-superuser` secret in the `mas-masdemo-core` namespace.
+When you are done with your environment, you can stop it using the `crc stop` command. Of course, you can restart it when needed, using the `crc start` command.
