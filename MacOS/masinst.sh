@@ -23,6 +23,31 @@ else
   exit 1
 fi
 
+function checkcrcstatus () {
+crcstatus=$1
+retry=20
+while  ( [ $retry -gt 0 ] )
+do
+    str1=$( crc status | grep 'CRC' |  grep  'VM' | grep -i "$crcstatus")
+    if [[ -n ${str1} ]]; 
+    then
+      echo "CRC is $crcstatus"
+      break
+    fi
+    sleep 30;
+    echo "CRC is not in $crcstatus will check again in 30 sec."
+    retry=`expr $retry - 1`
+done
+if [ $retry -eq 0 ]
+then
+  echo " CRC fail to $crcstatus correctly in 10 Mins!!! "
+  echo " Please Check what's wrong. "
+  exit 1
+else
+  echo "CRC is already in $crcstatus"
+fi
+}
+
 echo "#1 Check  if crc is install correctly"
 ## Not check the Openshift status because sometimes CRC cluster still work even the openshift status not running
 crcvm= $(crc status | grep 'CRC' |  grep  'VM' | grep 'Running')
@@ -57,7 +82,6 @@ else
 fi
 
 ### Now configure the local-path Storage Provisoner
-unzip confiure.tar
 oc apply -f local-path-storage-mod.yaml
 
 ## Creates a pod to run the MAS ansible collection
