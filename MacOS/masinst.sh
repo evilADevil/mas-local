@@ -1,35 +1,12 @@
 #！ /bin/bash
 
-echo "####Pre-install Check####"
-## Check if the crc configure can meet the install
-telemetryflag=$(crc config view | grep -i 'telemetry' |awk -F ':' '{print $2}')
-cpunum=$(crc config view | grep -i 'cpus' |awk -F ':' '{print $2}')
-disksize=$(crc config view | grep -i 'disk-size ' |awk -F ':' '{print $2}')
-memorysize=$(crc config view | grep -i 'memeory ' |awk -F ':' '{print $2}')
-## Start to set up CRC to use the pre-configured
-if [[ "$telemetryflag" == "no" ]] && (( $cpunum >= 14 )) && (( $disksize >= 200 )) && (( $memorysize >= 30720 ))
-then
-  echo "CRC confguration meets the MAS install requirement"
-else
-  echo "CRC confguration does not meet the MAS install requirement"
-  echo "Please double check and run the below command to achieve the minimum configuration and re-run the install script"
-  echo "crc config set consent-telemetry no"
-  echo "crc config set cpus 14"
-  echo "crc config set memory 30720"
-  echo "crc start"
-  echo "crc stop"
-  echo "crc config set disk-size 200"
-  echo "crc start"
-  exit 1
-fi
-
 function checkcrcstatus () {
 crcstatus=$1
-retry=20
+retry=2
 while  ( [ $retry -gt 0 ] )
 do
     str1=$( crc status | grep 'CRC' |  grep  'VM' | grep -i "$crcstatus")
-    if [[ -n ${str1} ]]; 
+    if [[ -n ${str1} ]];
     then
       echo "CRC is $crcstatus"
       break
@@ -48,15 +25,47 @@ else
 fi
 }
 
+
+echo "####Pre-install Check####"
+## Check if the crc configure can meet the install
+telemetryflag=$(crc config view | grep -i 'telemetry' |awk -F ':' '{print $2}' |tr -d ' ')
+cpunum=$(crc config view | grep -i 'cpus' |awk -F ':' '{print $2}'|tr -d ' ')
+disksize=$(crc config view | grep -i 'disk-size ' |awk -F ':' '{print $2}'|tr -d ' ' )
+memorysize=$(crc config view | grep -i 'memory ' |awk -F ':' '{print $2}'|tr -d ' ')
+## Start to set up CRC to use the pre-configured
+if [[ "$telemetryflag" == "no" ]] && (( $cpunum >= 14 )) && (( $disksize >= 200 )) && (( $memorysize >= 30720 ))
+then
+  echo "CRC confguration meets the MAS install requirement"
+else
+  echo "CRC confguration does not meet the MAS install requirement"
+  echo "Stop and congiure the minimum configuration and re-run the install script"
+  crc stop
+  checkcrcstatus stopped
+  [[ "$telemetryflag" != "no" ]] && crc config set consent-telemetry no
+  (( $cpunum < 14 )) && crc config set cpus 14
+  (( $memorysize < 30720 )) && crc config set memory 30720
+  crc start
+  checkcrcstatus running
+  if  (( $disksize < 200 ))
+  then
+    crc stop
+    checkcrcstatus stopped
+    crc config set disk-size 200
+    crc start
+    checkcrcstatus running
+  fi
+fi
+
 echo "#1 Check  if crc is install correctly"
 ## Not check the Openshift status because sometimes CRC cluster still work even the openshift status not running
-crcvm= $(crc status | grep 'CRC' |  grep  'VM' | grep 'Running')
-if [[ -n  "$crcvm"]]
+crcvm=$(crc status | grep 'CRC' |  grep  'VM' | grep 'Running')
+if [[ -n  "$crcvm" ]]
 then
   echo "CRC VM is running now"
 else
   echo "CRC VM is not running, pls make sure your CRC is running for MAS install"
-  exit 1
+  crc start
+  checkcrcstatus running
 fi
 
 ## Will add oc check 
@@ -67,6 +76,9 @@ then
   echo "========You don't have oc client and Prepare Openshift client ==========="
   curl -O "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.10.0/openshift-client-mac-4.10.0.tar.gz"
   tar -xzvf openshift-client-mac-4.10.0.tar.gz
+  chmod +x oc kubectl
+  mv oc /usr/local/bin/oc 
+  mv kubectl /usr/local/bin/kubectl
   echo "Need you to run the below command to copy the oc to /usr/local/bin in your macOS and allow it in system prefernece"
   echo "sudo mv oc /usr/local/bin/oc && sudo mv kubectl /usr/local/bin/kubectl"
   exit 1
@@ -111,18 +123,11 @@ else
   echo "Pod is Running Well"
 fi
 
-### Prepare ro run the ansible playbook in the pods
-oc exec $POD -- rm -rf /opt/app-root/devops/playbooks
-oc exec $POD -- rm -rf /opt/app-root/devops/roles
 
-###Clone the latest collection
-oc exec $POD -- git clone https://github.com/ibm-mas/ansible-devops /tmp/ansible-devops
-oc exec $POD -- cp -rf /tmp/ansible-devops/ibm/mas_devops/playbooks /opt/app-root/devops/
-oc exec $POD -- cp -rf /tmp/ansible-devops/ibm/mas_devops/roles /opt/app-root/devops/
 
 ##Creates the directory where all the MAS configuration will go
 masconfgpath="/tmp/masconfig"
-oc exec $POD -- mkdir $masconfgpath
+oc exec $POD -- mkdir -p $masconfgpath
 
 ## Uploads your MAS license file and UDS certificate
 oc cp license.dat mas-devops/$POD:$masconfgpath/license.dat

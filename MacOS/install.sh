@@ -61,6 +61,14 @@ export DB2_MEMORY_REQUESTS=3Gi
 export MAS_APP_SETTINGS_AIO_FLAG=false
 export MAS_APP_SETTINGS_DEMODATA=true
 
+### Get the ansible playbook in the pods
+rm -rf /opt/app-root/devops/playbooks
+rm -rf /opt/app-root/devops/roles
+rm -fr /tmp/ansible-devops
+git clone https://github.com/ibm-mas/ansible-devops /tmp/ansible-devops
+cp -rf /tmp/ansible-devops/ibm/mas_devops/playbooks /opt/app-root/devops/
+cp -rf /tmp/ansible-devops/ibm/mas_devops/roles /opt/app-root/devops/
+
 ###comment out the role not required
 sed -i 's%- ibm.mas_devops.sbo%#- ibm.mas_devops.sbo%g' /opt/app-root/devops/playbooks/oneclick_core.yml
 sed -i 's%- ibm.mas_devops.cluster_monitoring%#- ibm.mas_devops.cluster_monitoring%g' /opt/app-root/devops/playbooks/oneclick_core.yml
