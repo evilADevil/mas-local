@@ -11,6 +11,10 @@ REM --------------------------------------------------------
 echo +----------------------------------+
 if "%1" EQU "mssql" (echo ^| Deployment for an external MSSQL ^|) else (echo ^| Deployment for an internal DB2   ^|)
 echo +----------------------------------+
+for /f "tokens=2" %%i in ('crc status ^| findstr /c:"OpenShift:"') do if "%%i" NEQ "Running" (echo OpenShift Local is not running while it should. Issue 'crc start' and set the environment. && exit /B 1)
+oc get pods > NULL 2>&1
+if %errorlevel% NEQ 0 echo Either the OpenShift Local environment is not set properly or we are not logged into a cluster.  && exit /B 1
+echo Ready to start the installation.
 pause
 
 REM Install the local path provisioner, from the Rancher distro, slightly modified to work on OCP
