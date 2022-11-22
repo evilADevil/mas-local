@@ -57,4 +57,4 @@ oc exec %POD% -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && ansible-gal
 
 REM Run the playbook
 oc exec %POD% -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && ansible-playbook ibm.mas_devops.masocpl"
-if "%1" EQU "mssql" (oc apply -f manageworkspace-masdemo-maslocal.yaml)
+if "%1" EQU "mssql" (oc apply -f mssql/manageworkspace-masdemo-maslocal.yaml)

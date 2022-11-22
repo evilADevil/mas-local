@@ -1,0 +1,42 @@
+﻿apiVersion: apps.mas.ibm.com/v1
+kind: ManageWorkspace
+metadata:
+  name: masdemo-maslocal
+  namespace: mas-masdemo-manage
+  labels:
+    mas.ibm.com/applicationId: manage
+    mas.ibm.com/instanceId: masdemo
+    mas.ibm.com/workspaceId: maslocal
+spec:
+  bindings:
+    jdbc: workspace-application
+  components:
+    base:
+      version: latest
+  settings:
+    aio:
+      install: false
+    db:
+      dbSchema: dbo
+      maxinst:
+        bypassUpgradeVersionCheck: false
+        db2Vargraphic: false
+        demodata: true
+        indexSpace: PRIMARY
+        tableSpace: PRIMARY
+    deployment:
+      buildTag: latest
+      mode: up
+      persistentVolumes: []
+      serverBundles:
+        - bundleType: all
+          isDefault: true
+          isMobileTarget: true
+          isUserSyncTarget: true
+          name: all
+          replica: 1
+          routeSubDomain: all
+      serverTimezone: GMT
+    languages:
+      baseLang: EN
+      secondaryLangs: []
