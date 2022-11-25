@@ -33,6 +33,11 @@ cpunum=$(crc config view | grep -i 'cpus' |awk -F ':' '{print $2}'|tr -d ' ')
 disksize=$(crc config view | grep -i 'disk-size ' |awk -F ':' '{print $2}'|tr -d ' ' )
 memorysize=$(crc config view | grep -i 'memory ' |awk -F ':' '{print $2}'|tr -d ' ')
 ## Start to set up CRC to use the pre-configured
+[[ -z "${telemetryflag}" ]] &&  crc config set consent-telemetry no && export starflag=true
+[[ -z "$cpunum" ]] && crc config set cpus 14 && export starflag=true
+[[ -z "$disksize" ]] && crc config set disk-size 200 && export starflag=true
+[[ -z "$memorysize" ]] && crc config set memory 30720 && export starflag=true
+[[ "$starflag" == "true" ]] && crc start && checkcrcstatus running
 if [[ "$telemetryflag" == "no" ]] && (( $cpunum >= 14 )) && (( $disksize >= 200 )) && (( $memorysize >= 30720 ))
 then
   echo "CRC confguration meets the MAS install requirement"
@@ -91,6 +96,7 @@ then
   echo "Login successful."
 else
   echo "Not able to login, please check the CRC status again"
+  exit 1
 fi
 
 ### Now configure the local-path Storage Provisoner
@@ -122,8 +128,8 @@ then
 else
   echo "Pod is Running Well"
 fi
-
-
+echo "==============Start to run the install script in the mas-devops pod=================================="
+echo "====You can login Dashboard and check the pod mas-devops/$POD and log at /tmp/oneclick_manage.log===="
 
 ##Creates the directory where all the MAS configuration will go
 masconfgpath="/tmp/masconfig"
