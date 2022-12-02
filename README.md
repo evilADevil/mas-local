@@ -27,7 +27,7 @@ Now that you have OpenShift Local running, you are almost ready to install MAS C
 Open a Windows command prompt, and `cd` to a directory in which you will want to create the MAS Local working directory.
 As a firt step, let's grab the content of this repository. Issue the following command from the directory you have chosen for this work.
 ```
-git clone mas-local
+git clone https://github.com/evilADevil/mas-local
 cd mas-local
 ```
 Then you need to procure yourself a few files to add to this directory and some important information:
