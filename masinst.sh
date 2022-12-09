@@ -1,5 +1,5 @@
 ## Install the local provisioning storage class
-oc apply -f local-path-storage-mod.yaml
+## oc apply -f local-path-storage-mod.yaml
 
 ## Creates a pod to run the MAS ansible collection
 oc apply -f masdevops.yaml
