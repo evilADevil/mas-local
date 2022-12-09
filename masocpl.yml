@@ -1,7 +1,7 @@
 - hosts: localhost
   any_errors_fatal: true
   vars:
-    mongodb_storage_class: local-path
+    mongodb_storage_class: crc-csi-hostpath-provisioner
     mongodb_storage_capacity_data: 5Gi
     mongodb_storage_capacity_logs: 2Gi
     mongodb_replicas: 1
@@ -27,11 +27,11 @@
 # Cannot set dbname due to a bug in create_ldap_user.yml
 #    db2_dbname: 'maxdb'
     
-    db2_data_storage_class: local-path
-    db2_meta_storage_class: local-path
-    db2_backup_storage_class: local-path
-    db2_logs_storage_class: local-path
-    db2_temp_storage_class: local-path
+    db2_data_storage_class: crc-csi-hostpath-provisioner
+    db2_meta_storage_class: crc-csi-hostpath-provisioner
+    db2_backup_storage_class: crc-csi-hostpath-provisioner
+    db2_logs_storage_class: crc-csi-hostpath-provisioner
+    db2_temp_storage_class: crc-csi-hostpath-provisioner
     
     db2_data_storage_accessmode: ReadWriteOnce
     db2_meta_storage_accessmode: ReadWriteOnce

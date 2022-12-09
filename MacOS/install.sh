@@ -24,11 +24,11 @@ export UDS_CONTACT_EMAIL=nobody@abc.com
 export UDS_CONTACT_FIRSTNAME=nobody
 export UDS_CONTACT_LASTNAME=nobody
 
-export UDS_STORAGE_CLASS=local-path
+export UDS_STORAGE_CLASS=crc-csi-hostpath-provisioner
 
 
 ### Mongo Storage class and size
-export MONGODB_STORAGE_CLASS=local-path
+export MONGODB_STORAGE_CLASS=crc-csi-hostpath-provisioner
 export MONGODB_CPU_REQUESTS=50m
 export MONGODB_MEM_REQUESTS=256Mi
 
@@ -38,15 +38,15 @@ export MAS_ENTITLEMENT_KEY=${IBM_ENTITLEMENT_KEY}
 export MAS_APP_ID=manage
 
 ###Confgur the DB2 Disk Size and No need to change 
-export DB2_META_STORAGE_CLASS="local-path"
+export DB2_META_STORAGE_CLASS="crc-csi-hostpath-provisioner"
 export DB2_META_STORAGE_SIZE="10Gi"
-export DB2_DATA_STORAGE_CLASS="local-path"
+export DB2_DATA_STORAGE_CLASS="crc-csi-hostpath-provisioner"
 export DB2_DATA_STORAGE_SIZE="10Gi"
-export DB2_BACKUP_STORAGE_CLASS="local-path"
+export DB2_BACKUP_STORAGE_CLASS="crc-csi-hostpath-provisioner"
 export DB2_BACKUP_STORAGE_SIZE="10Gi"
-export DB2_LOGS_STORAGE_CLASS="local-path"
+export DB2_LOGS_STORAGE_CLASS="crc-csi-hostpath-provisioner"
 export DB2_LOGS_STORAGE_SIZE="10Gi"
-export DB2_TEMP_STORAGE_CLASS="local-path"
+export DB2_TEMP_STORAGE_CLASS="crc-csi-hostpath-provisioner"
 export DB2_TEMP_STORAGE_SIZE="10Gi"
 export DB2_META_STORAGE_ACCESSMODE=ReadWriteOnce
 export DB2_BACKUP_STORAGE_ACCESSMODE=ReadWriteOnce 

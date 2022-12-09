@@ -18,7 +18,8 @@ echo Ready to start the installation.
 pause
 
 REM Install the local path provisioner, from the Rancher distro, slightly modified to work on OCP
-oc apply -f local-path-storage-mod.yaml
+REM *** This is no more needed from CRC 2.11.0, because there is an equivalent default storage class (crc-csi-hostpath-provisioner)
+REM oc apply -f local-path-storage-mod.yaml
 
 REM Creates a pod to run the MAS ansible collection
 oc apply -f masdevops.yaml

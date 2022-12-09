@@ -1,7 +1,7 @@
 - hosts: localhost
   any_errors_fatal: true
   vars:
-    mongodb_storage_class: local-path
+    mongodb_storage_class: crc-csi-hostpath-provisioner
     mongodb_storage_capacity_data: 5Gi
     mongodb_storage_capacity_logs: 2Gi
     mongodb_replicas: 1
