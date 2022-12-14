@@ -34,7 +34,7 @@ cd mas-local
 Then you need to procure yourself a few files to add to this directory and some important information:
 1. The **Entitled Registry (ER) key**. This key will have to be enabled to get the MAS and CloudPak for Data images and you can get it by logging into [My IBM](https://myibm.ibm.com/dashboard/) and click on *Container Software & Entitlement key*
 2. A **MAS license file**. Put this file called `license.dat` in the `mas-local` directory.
-3. A **license id** matching the MAS license file. You can find out what this is by open the license file in an editor, and check the first line. The license id will be the second-last number. For example, if your first line is `SERVER sls-rlks-0.rlks 0272bc344002 27000` then your icense id is `0272bc344002`.
+3. A **license id** matching the MAS license file. You can find out what this is by open the license file in an editor, and check the first line. The license id will be the second-last number. For example, if your first line is `SERVER sls-rlks-0.rlks 0272bc344002 27000` then your license id is `0272bc344002`.
 4. The **url of the remote UDS**.
 5. The **API key for the remote UDS**.
 6. The **certificates of the remote UDS**. Put them in a file called `uds.crt` in the `mas-local` directory.
