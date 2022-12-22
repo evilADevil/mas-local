@@ -1,0 +1,9 @@
+10.0.2.2 console-openshift-console.apps-crc.testing
+10.0.2.2 oauth-openshift.apps-crc.testing
+10.0.2.2 api.masdemo.apps-crc.testing
+10.0.2.2 admin.masdemo.apps-crc.testing
+10.0.2.2 auth.masdemo.apps-crc.testing
+10.0.2.2 home.masdemo.apps-crc.testing
+10.0.2.2 maslocal.home.masdemo.apps-crc.testing
+10.0.2.2 maslocal-all.manage.masdemo.apps-crc.testing
+10.0.2.2 maslocal.manage.masdemo.apps-crc.testing
