@@ -1,5 +1,5 @@
 # MAS Local
- A few scripts to bring up a MAS Manage on OCP Local with DB2 in the cluster (there is also a version with an external MS SQL). If you want to watch a recording of the installation, it is available on YouTube [here](https://youtu.be/LrbPGrxxAvo).
+ A few scripts to bring up a MAS Manage on OCP Local with DB2 in the cluster (there is also a version with an external MS SQL). If you want to watch a recording of the installation, it is available on YouTube [here](https://youtu.be/LrbPGrxxAvo). If you would like to use this MAS Manage on OCP Local to demo Maximo Mobile using a local emulator, check [this blog](https://community.ibm.com/community/user/asset-facilities/blogs/alex-donatelli/2022/12/22/maximo-mobile-demo-env-connected-to-manage-local).
  Please note that the current version works from CRC 2.11.0 (OCP 4.11.17) on.
 
 ## Summary
