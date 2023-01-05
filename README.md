@@ -41,7 +41,7 @@ Then you need to procure yourself a few files to add to this directory and some 
 	To get the UDS info, you may want to follow these few steps:
 	- Find a MAS system with a local UDS instance and login into it as a MAS administrator.
 	- Navigate to *Configurations* and click on the *User Data Service* line.
-	- In that page you will find the url and the certificates to put in the `uds.crt` file.
+	- In that page you will find the url and the certificates to put in the `uds.crt` file. You need to put two certificates in that file. 
 	- In that page it is also contains the name of the secret that hold the UDS API key. Take a note of it, it is something like `<MAS instance name>-usersupplied-bas-creds-system`
 	- To get the UDS API key, you'll need to login into the OpenShift cluster where UDS is running, then:
 	  - click on *Workloads* to expand the section,
