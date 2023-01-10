@@ -28,4 +28,4 @@ crc start
 At this point you should have an OpenShift running and ready to host MAS Core + Manage. From the last ourput of `crc start` you may want to record the password to log into the cluster.
 
 ## What you would need to run MAS Manage and you would install MAS Core and MAS Manage
-The instructions are exactly those written in the main README. The only difference is that, to run the installation for an external MS SQL, the command is `masinst mssql`.
+The instructions are exactly those written in the main README, but instead of customizing the file `masocpl.yml` in the `mas-local` directory, you'll need to customize the one in this directory (i.e. `mas-local\mssql`). Moreover there is a difference in the way you will invoke the batch file to run the installation for an external MS SQL. The command is `masinst mssql`.
