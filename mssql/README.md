@@ -29,3 +29,4 @@ At this point you should have an OpenShift running and ready to host MAS Core + 
 
 ## What you would need to run MAS Manage and you would install MAS Core and MAS Manage
 The instructions are exactly those written in the main README, but instead of customizing the file `masocpl.yml` in the `mas-local` directory, you'll need to customize the one in this directory (i.e. `mas-local\mssql`). Moreover there is a difference in the way you will invoke the batch file to run the installation for an external MS SQL. The command is `masinst mssql`.
+When the installation is completed, follow the instructions at the end of the main README, to retrieve the MAS superuser credentials, accept the self-signed certificates, log as the MAS superuser, reset the password of the user `wilson`, and then log as him to access Manage.

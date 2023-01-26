@@ -93,7 +93,7 @@ At the command prompt, run the following commands using the password that your e
 @FOR /f "tokens=*" %i IN ('crc oc-env') DO @call %i
 oc login -u kubeadmin -p H2rDA-GXB82-dSdTA-cAAYu https://api.crc.testing:6443
 ```
-AT this point you are ready to install MAS with Manage. Run `masinst` at the prompt and wait it to finish.
+At this point you are ready to install MAS with Manage. Run `masinst` at the prompt and wait it to finish.
 As the log proceed, pay attention to record the userid and password of the MAS superuser, that should look like this:
 ```
 ok: [localhost] => {
@@ -106,4 +106,5 @@ ok: [localhost] => {
 }
 ```
 In case you don't have the log anymore, you can always retrieve them from the `masdemo-credentials-superuser` secret in the `mas-masdemo-core` namespace.
+After the installation completes, you may want to log into MAS administration using the MAS superuser credentials. You can fing the urls to use in the `Networking -> Routes` of the `mas-masdemo-core` namespace. First of all click on the `masdemo-api` url and accept the self-signed certificate. In this way your browser won't have a problem in accessing the MAS APIs later on. Ignore the execption you will get and close that window. Then go back to the cluster UI and click the `masdemo-admin` url. Once in MAS, navigate to the `Users` section, filter by `wilson`, then click on the `wilson` user and reset his password. Wait for the syncronization to finish. Log out and login as `wilson`. In the MAS Navigator you should see the Manage tile and you should be able to launch into it.
 When you are done with your environment, you can stop it using the `crc stop` command. Of course, you can restart it when needed, using the `crc start` command.
