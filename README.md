@@ -41,13 +41,13 @@ Then you need to procure yourself a few files to add to this directory and some 
 	To get the UDS info, you may want to follow these few steps:
 	- Find a MAS system with a local UDS instance and login into it as a MAS administrator.
 	- Navigate to *Configurations* and click on the *User Data Service* line.
-	- In that page you will find the url and the certificates to put in the `uds.crt` file. You need to put two certificates in that file. 
-	- In that page it is also contains the name of the secret that hold the UDS API key. Take a note of it, it is something like `<MAS instance name>-usersupplied-bas-creds-system`
+	- In that page you will find the url and the certificates to put in the `uds.crt` file. You need to put two certificates in that file. Edit the UDS configuration and then edit the first and second certificate to reveal its content.
+	- In that page it is also contains the name of the secret that hold the UDS API key. Take a note of it, it is something like `<MAS instance name>-usersupplied-bas-creds-system` or `uds-apikey`
 	- To get the UDS API key, you'll need to login into the OpenShift cluster where UDS is running, then:
 	  - click on *Workloads* to expand the section,
 	  - click on *Secrets*,
 	  - make sure the Project at the top is `mas-<MAS instance name>-core`,
-	  - find the secret named as you noted from the MAS configuration panel, something like `<MAS instance name>-usersupplied-bas-creds-system`, open its yaml and grab the base64 encoded `api_key` from the `data` section,
+	  - find the secret named as you noted from the MAS configuration panel, open its yaml and grab the base64 encoded `api_key` from the `data` section
 	  - decode the api key using a base64 decoder like the one on [this site](https://www.base64decode.org/)
 
 The next step is to customize the file `masocpl.yml` using the information you collected. Specifically:
