@@ -4,7 +4,7 @@
 
 ## Summary
 My team and I have decided to focus a bit on the problem of installing MAS on a laptop computer in a simple way. I've tried to interest people to pull together notes and explanations on how to do that, but got not a lot of help, so we spent some of our free time on that task. I hope you will find it useful, and that you'll help us in keeping it current and improve it.
-These instructions will allow you to have a fully functional MAS Core + Manage, that has the Suite License Server (SLS) and DB2 on board, while UDS is remote.
+These instructions will allow you to have a fully functional MAS Core + Manage, that has the Suite License Server (SLS) and DB2 on board, while UDS is remote. We need a remote UDS because a full UDS deployment will not fit in the configured size of OCP Local.
 
 ## What you would need to run OpenShift Local
 First of all, you'll need a decent Laptop. I used a Lenovo ThinkPad P15 with 64 GiB of memory. In the end, you will need the availability of 14 vCPU and 30 GiB of memory in the virtual environment you will use that is Hyper-V for Windows.
