@@ -15,9 +15,8 @@
     bootstrap:
       license_id: <<your license id>>
       license_file: "/opt/app-root/src/masloc/license.dat"
-    uds_endpoint_url: <<your uds url>> 
-    uds_api_key: <<your uds api key>>
-    uds_tls_crt_local_file_path: "/opt/app-root/src/masloc/uds.crt"
+    uds_action: install_suds
+    uds_storage_class: crc-csi-hostpath-provisioner
     uds_contact:
       email: 'nobody@nowhere.com'
       first_name: 'nobody'

@@ -2,7 +2,7 @@
  A few scripts to bring up a MAS Manage on OCP Local with an external MS SQL
  
 ## Summary
-These instructions will allow you to have a fully functional MAS Core + Manage, that has the Suite License Server (SLS) on board, while UDS is remote and Manage uses a MS SQL Server outside of the OpenShift cluster, but resident on the same PC.
+These instructions will allow you to have a fully functional MAS Core + Manage, that has the Suite License Server (SLS) on board, while UDS is either slim or remote and Manage uses a MS SQL Server outside of the OpenShift cluster, but resident on the same PC.
 
 ## What you would need to run MS SQL Server
 For this type of deployment you will need a laptop able to handle OCP Local with 12 vCPU and 20 GiB of memory + a running MS SQL Server. (Hopefully a Lenovo ThinkPad P15 with 32 GiB of memory is enough).

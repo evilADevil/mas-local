@@ -5,7 +5,7 @@
     mongodb_storage_capacity_data: 5Gi
     mongodb_storage_capacity_logs: 2Gi
     mongodb_replicas: 1
-    mas_channel: 8.9.x
+    mas_channel: 8.10.x
     mas_workspace_name: "MAS Local"
     mas_instance_id: masdemo
     mas_workspace_id: maslocal
@@ -24,7 +24,7 @@
       last_name: 'noone'
 
     mas_app_id: 'manage'
-    mas_app_channel: 8.5.x
+    mas_app_channel: 8.6.x
     mas_app_upgrade_strategy: 'Manual'
 # This does not work at the moment and there is a workaround for it in the bat file
 #   a defect has been open and this file will be updated when it will be fixed

@@ -4,12 +4,12 @@
 
 ## Summary
 My team and I have decided to focus a bit on the problem of installing MAS on a laptop computer in a simple way. I've tried to interest people to pull together notes and explanations on how to do that, but got not a lot of help, so we spent some of our free time on that task. I hope you will find it useful, and that you'll help us in keeping it current and improve it.
-These instructions will allow you to have a fully functional MAS Core + Manage, that has the Suite License Server (SLS) and DB2 on board, while UDS is remote. We need a remote UDS because a full UDS deployment will not fit in the configured size of OCP Local.
+These instructions will allow you to have a fully functional MAS Core + Manage, that has the Suite License Server (SLS) and DB2 on board, while UDS is either the slim version or it is remote. We need a slim or remote UDS because a full UDS deployment will not fit in the configured size of OCP Local.
 
 ## What you would need to run OpenShift Local
 First of all, you'll need a decent Laptop. I used a Lenovo ThinkPad P15 with 64 GiB of memory. In the end, you will need the availability of 14 vCPU and 30 GiB of memory in the virtual environment you will use that is Hyper-V for Windows.
 If you have a smaller PC that has only 32 GB of memory but still at least 12 vCPU, you may want to try the deployment using an external MS SQL Server described [here](https://github.com/evilADevil/mas-local/tree/main/mssql)
-Then you will need a locally running OCP (also know previously as CRC, i.e. Code Ready Container). Normally you would download it from the Red Hat Console page, but the version in that page is always the latest, while we need the one supported by MAS. You can download it from https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/2.12.0. For Windows, the file is `crc-windows-installer.zip`. Unzip it and install it. Then register to Red Hat if you haven't already, go to the [Red Hat Console for OpenShift](https://console.redhat.com/openshift), click on the *Create Cluster* button, click on the *Local* tab. In that page, there is your pull secret that you'll need to copy and use during setup
+Then you will need a locally running OCP (also know previously as CRC, i.e. Code Ready Container). Normally you would download it from the Red Hat Console page, but the version in that page is always the latest, while we need the one supported by MAS. You can download it from https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/2.19.0. For Windows, the file is `crc-windows-installer.zip`. Unzip it and install it. Then register to Red Hat if you haven't already, go to the [Red Hat Console for OpenShift](https://console.redhat.com/openshift), click on the *Create Cluster* button, click on the *Local* tab. In that page, there is your pull secret that you'll need to copy and use during setup
 Now you are ready for the next step. Open a command prompt and run `crc setup`. Before staring a new OpenShift Local, we want to configure it so that it will allow MAS to fit. We will need to use a trick because CRC seems to have a bug in expanding the disk. We need to start it a first time, then stop it, set the new disk size and start it again.
 This is the set of commands to configure it correctly and start it
 ```
@@ -35,9 +35,9 @@ Then you need to procure yourself a few files to add to this directory and some 
 1. The **Entitled Registry (ER) key**. This key will have to be enabled to get the MAS and CloudPak for Data images and you can get it by logging into [My IBM](https://myibm.ibm.com/dashboard/) and click on *Container Software & Entitlement key*
 2. A **MAS license file**. Put this file called `license.dat` in the `mas-local` directory.
 3. A **license id** matching the MAS license file. You can find out what this is by open the license file in an editor, and check the first line. The license id will be the second-last number. For example, if your first line is `SERVER sls-rlks-0.rlks 0272bc344002 27000` then your license id is `0272bc344002`.
-4. The **url of the remote UDS**.
-5. The **API key for the remote UDS**.
-6. The **certificates of the remote UDS**. Put them in a file called `uds.crt` in the `mas-local` directory.
+4. The **url of the remote UDS** (In case you decided to use the slim version of UDS you won't need this one).
+5. The **API key for the remote UDS** (In case you decided to use the slim version of UDS you won't need this one).
+6. The **certificates of the remote UDS**(In case you decided to use the slim version of UDS you won't need this one). Put them in a file called `uds.crt` in the `mas-local` directory.
 	To get the UDS info, you may want to follow these few steps:
 	- Find a MAS system with a local UDS instance and login into it as a MAS administrator.
 	- Navigate to *Configurations* and click on the *User Data Service* line.
@@ -58,11 +58,13 @@ Then you need to procure yourself a few files to add to this directory and some 
 	  - find the secret named as you noted from the MAS configuration panel, open its yaml and grab the base64 encoded `api_key` from the `data` section
 	  - decode the api key using a base64 decoder like the one on [this site](https://www.base64decode.org/)
 
+In case you don't have a remote UDS or have decided to use the Slim UDS, replace the `masocpl.yml` with the `masocpl.suds.yml`
+
 The next step is to customize the file `masocpl.yml` using the information you collected. Specifically:
 - Replace `<<your ER key>>` with your ER key from step 0 above.
 - Replace `<<your license id>>` with the license id you obtained from step 2 above
-- Replace `<<your uds url>>` with the url obtained in step 3 above
-- Replace `<<your uds api key>>` with the url obtained in step 4 above
+- If you are using a remote UDS, replace `<<your uds url>>` with the url obtained in step 3 above.
+- If you are using a remote UDS, replace `<<your uds api key>>` with the url obtained in step 4 above
 - Replace also the `uds_contact` info
 We are ready to proceed to install MAS Core and Manage
 
