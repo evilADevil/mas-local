@@ -37,7 +37,7 @@ Then you need to procure yourself a few files to add to this directory and some 
 3. A **license id** matching the MAS license file. You can find out what this is by open the license file in an editor, and check the first line. The license id will be the second-last number. For example, if your first line is `SERVER sls-rlks-0.rlks 0272bc344002 27000` then your license id is `0272bc344002`.
 4. The **url of the remote UDS** (In case you decided to use the slim version of UDS you won't need this one).
 5. The **API key for the remote UDS** (In case you decided to use the slim version of UDS you won't need this one).
-6. The **certificates of the remote UDS**(In case you decided to use the slim version of UDS you won't need this one). Put them in a file called `uds.crt` in the `mas-local` directory.
+6. The **certificates of the remote UDS** (In case you decided to use the slim version of UDS you won't need this one). Put them in a file called `uds.crt` in the `mas-local` directory.
 	To get the UDS info, you may want to follow these few steps:
 	- Find a MAS system with a local UDS instance and login into it as a MAS administrator.
 	- Navigate to *Configurations* and click on the *User Data Service* line.
