@@ -15,7 +15,7 @@
     bootstrap:
       license_id: <<your license id>>
       license_file: "/opt/app-root/src/masloc/license.dat"
-    uds_action: install_suds
+    uds_action: install-suds
     uds_storage_class: crc-csi-hostpath-provisioner
     uds_contact:
       email: 'nobody@nowhere.com'
