@@ -5,7 +5,7 @@
     mongodb_storage_capacity_data: 5Gi
     mongodb_storage_capacity_logs: 2Gi
     mongodb_replicas: 1
-    mas_channel: 8.10.x
+    mas_channel: 8.11.x
     mas_workspace_name: "MAS Local"
     mas_instance_id: masdemo
     mas_workspace_id: maslocal
