@@ -100,8 +100,8 @@ else
 fi
 
 ### Now configure the local-path Storage Provisoner
-*** This is no more needed from CRC 2.11.0, because there is an equivalent default storage class (crc-csi-hostpath-provisioner)
-## oc apply -f local-path-storage-mod.yaml
+### This is no more needed from CRC 2.11.0, because there is an equivalent default storage class (crc-csi-hostpath-provisioner)
+### oc apply -f local-path-storage-mod.yaml
 
 ## Creates a pod to run the MAS ansible collection
 oc apply -f masdevops.yaml
