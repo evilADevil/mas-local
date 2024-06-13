@@ -94,6 +94,13 @@ eval $logincmd | grep -i 'Login successful.'
 if [[ $? == 0 ]]
 then 
   echo "Login successful."
+  checkArch=$(oc get node -L 'kubernetes.io/arch'|grep ' arm64')
+  if [[ $? == 0 ]] && [[ -n "${checkArch}" ]]
+  then
+    echo "==== Arch Precheck failure !!!===="
+    echo "==== MAS does not Support Apple M1 ==== "
+    exit 0
+  fi
 else
   echo "Not able to login, please check the CRC status again"
   exit 1
