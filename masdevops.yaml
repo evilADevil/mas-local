@@ -50,7 +50,7 @@ spec:
       containers:
       - name: main
         imagePullPolicy: Always
-        image: quay.io/ibmmas/ansible-devops:latest
+        image: quay.io/ibmmas/cli:latest
         command: [ "/bin/bash", "-c", "--" ]
         args: [ "while true; do sleep 30; done;" ]
         securityContext:

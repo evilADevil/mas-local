@@ -20,8 +20,6 @@ crc config set consent-telemetry no
 crc config set host-network-access true
 crc config set cpus 12
 crc config set memory 25600
-crc start
-crc stop
 crc config set disk-size 200
 crc start
 ```

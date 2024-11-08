@@ -53,9 +53,9 @@ if "%1" EQU "mssql" (oc cp mssql/mssql-jdbccfg.yaml %POD%:/opt/app-root/src/masl
 if "%1" EQU "mssql" (oc cp mssql/mssql-secret.yaml %POD%:/opt/app-root/src/masloc/masconfig)
 
 REM Rebuilds the collection to add the new playbook and installs it
-for /f "tokens=6" %%i in ('oc exec %POD% -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection build --force" ^| findstr /c:"Created collection"') do set COLL=%%i
-oc exec %POD% -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection install %COLL% --force"
+for /f "tokens=6" %%i in ('oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection build --force" ^| findstr /c:"Created collection"') do set COLL=%%i
+oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection install %COLL% --force"
 
 REM Run the playbook
-oc exec %POD% -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && ansible-playbook ibm.mas_devops.masocpl"
+oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && ansible-playbook ibm.mas_devops.masocpl"
 if "%1" EQU "mssql" (oc apply -f mssql/manageworkspace-masdemo-maslocal.yaml)

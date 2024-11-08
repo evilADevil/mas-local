@@ -40,7 +40,7 @@ oc cp masocpl.yml $POD:/opt/app-root/src/masloc/ansible-devops/ibm/mas_devops/pl
 oc cp license.dat mas-devops/$POD:/opt/app-root/src/masloc
 oc cp uds.crt mas-devops/$POD:/opt/app-root/src/masloc
 IFS=' '
-read -a strarr <<< $(oc exec $POD -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection build --force" | grep -i 'Created collection')
-oc exec $POD -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection install ${strarr[5]} --force"
+read -a strarr <<< $(oc exec $POD -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection build --force" | grep -i 'Created collection')
+oc exec $POD -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection install ${strarr[5]} --force"
 ## Run the playbook
-oc exec $POD -- bash -c "cd masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && ansible-playbook ibm.mas_devops.masocpl"
+oc exec $POD -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && ansible-playbook ibm.mas_devops.masocpl"
