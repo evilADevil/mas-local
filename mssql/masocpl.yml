@@ -21,23 +21,20 @@
       email: 'nobody@nowhere.com'
       first_name: 'nobody'
       last_name: 'noone'
-
     configure_external_db: true
     mas_config_scope: 'system'
     db_instance_id: maxdb80
     db_username: MAXIMO
+#    mas_app_settings_demodata: 'true'
+#    mas_app_settings_aio_flag: 'false'
+#    mas_app_settings_db_schema: dbo
+#    mas_app_settings_tablespace: PRIMARY
+#    mas_app_settings_indexspace: PRIMARY
     jdbc_instance_password: maximopassword
     jdbc_url: "jdbc:sqlserver://host.crc.testing:1433;databaseName=maxdb80;integratedSecurity=false;sendStringParametersAsUnicode=false;responseBuffering=adaptive;encrypt=false;"
-    mas_app_settings_db_schema: dbo
-    mas_app_settings_tablespace: PRIMARY
-    mas_app_settings_indexspace: PRIMARY
     mas_app_id: 'manage'
     mas_app_channel: 9.0.x
     mas_app_upgrade_strategy: 'Manual'
-# This does not work at the moment and there is a workaround for it in the bat file
-#   a defect has been open and this file will be updated when it will be fixed
-#    mas_app_settings_demodata: 'true'
-#    mas_app_settings_aio_flag: 'false'
 
   roles:
     - ibm.mas_devops.ibm_catalogs
@@ -47,9 +44,10 @@
     - ibm.mas_devops.sls
     - ibm.mas_devops.dro
     - ibm.mas_devops.gencfg_workspace
-    - ibm.mas_devops.gencfg_jdbc
+    - ibm.mas_devops.gencfg_jdbc    
     - ibm.mas_devops.suite_install
     - ibm.mas_devops.suite_config
     - ibm.mas_devops.suite_verify
     - ibm.mas_devops.suite_app_install
     - ibm.mas_devops.suite_app_config
+    

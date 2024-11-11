@@ -44,18 +44,12 @@ REM Uploads the playbook to install MAS on OCP local (this may eventually become
 REM --> IMPORTANT <-- You need to modify this file to include your ER key, License ID and external UDS url and api key
 if "%1" EQU "mssql" (oc cp mssql/masocpl.yml %POD%:/opt/app-root/src/masloc/ansible-devops/ibm/mas_devops/playbooks) else (oc cp masocpl.yml %POD%:/opt/app-root/src/masloc/ansible-devops/ibm/mas_devops/playbooks)
 
-REM Uploads your MAS license file and UDS certificate
+REM Uploads your MAS license file
 oc cp license.dat %POD%:/opt/app-root/src/masloc
-oc cp uds.crt %POD%:/opt/app-root/src/masloc
-
-REM If we are deployng for MS SQL, uploads the MS SQL Server configuration and secret
-if "%1" EQU "mssql" (oc cp mssql/mssql-jdbccfg.yaml %POD%:/opt/app-root/src/masloc/masconfig)
-if "%1" EQU "mssql" (oc cp mssql/mssql-secret.yaml %POD%:/opt/app-root/src/masloc/masconfig)
 
 REM Rebuilds the collection to add the new playbook and installs it
 for /f "tokens=6" %%i in ('oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection build --force" ^| findstr /c:"Created collection"') do set COLL=%%i
 oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection install %COLL% --force"
 
 REM Run the playbook
-oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && ansible-playbook ibm.mas_devops.masocpl"
-if "%1" EQU "mssql" (oc apply -f mssql/manageworkspace-masdemo-maslocal.yaml)
+oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && export MAS_APP_SETTINGS_AIO_FLAG=False && export MAS_APP_SETTINGS_DB_SCHEMA=dbo && export MAS_APP_SETTINGS_TABLESPACE=PRIMARY && export MAS_APP_SETTINGS_INDEXSPACE=PRIMARY && ansible-playbook ibm.mas_devops.masocpl"
