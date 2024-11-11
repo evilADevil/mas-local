@@ -28,9 +28,9 @@
     db_username: MAXIMO
     jdbc_instance_password: maximopassword
     jdbc_url: "jdbc:sqlserver://host.crc.testing:1433;databaseName=maxdb80;integratedSecurity=false;sendStringParametersAsUnicode=false;responseBuffering=adaptive;encrypt=false;"
-    mas_app_settings_db_schema: maximo
-    mas_app_settings_tablespace: maxdata
-    mas_app_settings_indexspace: maxindex
+    mas_app_settings_db_schema: MAXIMO
+    mas_app_settings_tablespace: PRIMARY
+    mas_app_settings_indexspace: PRIMARY
     mas_app_id: 'manage'
     mas_app_channel: 9.0.x
     mas_app_upgrade_strategy: 'Manual'
