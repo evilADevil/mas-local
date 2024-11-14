@@ -41,7 +41,7 @@ REM Creates the directory where all the MAS configuration will go
 oc exec %POD% -- mkdir /opt/app-root/src/masloc/masconfig
 
 REM Uploads the playbook to install MAS on OCP local (this may eventually become part of the MAS collection)
-REM --> IMPORTANT <-- You need to modify this file to include your ER key, License ID and external UDS url and api key
+REM --> IMPORTANT <-- You need to modify this file to include your ER key and License ID
 if "%1" EQU "mssql" (oc cp mssql/masocpl.yml %POD%:/opt/app-root/src/masloc/ansible-devops/ibm/mas_devops/playbooks) else (oc cp masocpl.yml %POD%:/opt/app-root/src/masloc/ansible-devops/ibm/mas_devops/playbooks)
 
 REM Uploads your MAS license file
@@ -52,4 +52,4 @@ for /f "tokens=6" %%i in ('oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc
 oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && ansible-galaxy collection install %COLL% --force"
 
 REM Run the playbook
-oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && export MAS_APP_SETTINGS_AIO_FLAG=False && export MAS_APP_SETTINGS_DB_SCHEMA=dbo && export MAS_APP_SETTINGS_TABLESPACE=PRIMARY && export MAS_APP_SETTINGS_INDEXSPACE=PRIMARY && ansible-playbook ibm.mas_devops.masocpl"
+if "%1" EQU "mssql" (oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && export MAS_APP_SETTINGS_AIO_FLAG=False && export MAS_APP_SETTINGS_DB_SCHEMA=dbo && export MAS_APP_SETTINGS_TABLESPACE=PRIMARY && export MAS_APP_SETTINGS_INDEXSPACE=PRIMARY && ansible-playbook ibm.mas_devops.masocpl") else (oc exec %POD% -- bash -c "cd /opt/app-root/src/masloc/ansible-devops/ibm/mas_devops && export MAS_APP_SETTINGS_DEMODATA=True && export MAS_APP_SETTINGS_AIO_FLAG=False && ansible-playbook ibm.mas_devops.masocpl")
