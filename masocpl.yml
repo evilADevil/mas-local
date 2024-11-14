@@ -6,7 +6,7 @@
     mongodb_storage_capacity_logs: 2Gi
     mongodb_replicas: 1
     mas_channel: 9.0.x
-    mas_catalog_version: v9-240625-amd64
+    mas_catalog_version: v9-241107-amd64
     mas_workspace_name: "MAS Local"
     mas_instance_id: masdemo
     mas_workspace_id: maslocal
